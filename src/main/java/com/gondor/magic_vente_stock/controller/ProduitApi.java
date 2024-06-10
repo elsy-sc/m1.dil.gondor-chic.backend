@@ -2,6 +2,7 @@ package com.gondor.magic_vente_stock.controller;
 
 import com.gondor.magic_vente_stock.metierServices.Produit;
 import com.gondor.magic_vente_stock.metierServices.ProduitManager;
+import com.gondor.magic_vente_stock.repository.ProduitRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,12 @@ public class ProduitApi {
     @GetMapping(path="/rechercherProduitDuJour")
     public List<Produit> rechercherProduitDuJour() throws Exception{
         return produitManager.rechercherProduitDuJour();
+    }
+
+    @CrossOrigin
+    @PostMapping(path="produits")
+    public Produit insertInstitution(@RequestBody Produit produit) throws Exception{
+        return produitManager.save(produit);
     }
 
 }

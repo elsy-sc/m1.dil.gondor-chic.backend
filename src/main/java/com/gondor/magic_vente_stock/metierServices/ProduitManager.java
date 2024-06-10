@@ -50,4 +50,8 @@ public class ProduitManager {
         return accountRepo.save(a);
     }
 
+    public Produit save(Produit produit){
+        return produitRepo.save(produit);
+    }
+
 }
