@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ProduitRepo extends JpaRepository<Produit,String> {
-    @Query(value = "select * from magic_vente_stock.t_produit where estDuJour = True", nativeQuery = true)
+    @Query(value = "select * from public.t_produit where estDuJour = True", nativeQuery = true)
     public List<Produit> getAllProductOfTheDay();
 }
