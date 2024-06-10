@@ -1,8 +1,5 @@
-package com.gondor.magic_vente_stock.service;
+package com.gondor.magic_vente_stock.metierServices;
 
-import com.gondor.magic_vente_stock.model.Account;
-import com.gondor.magic_vente_stock.model.Produit;
-import com.gondor.magic_vente_stock.model.Role;
 import com.gondor.magic_vente_stock.repository.AccountRepo;
 import com.gondor.magic_vente_stock.repository.ProduitRepo;
 import com.gondor.magic_vente_stock.repository.RoleRepo;
@@ -19,7 +16,7 @@ import java.util.List;
 @Service
 @Transactional
 @Slf4j
-public class ClientService {
+public class ProduitManager {
     private final ProduitRepo produitRepo;
 
     private final PasswordEncoder passwordEncoder;
@@ -28,7 +25,7 @@ public class ClientService {
 
     private final RoleRepo roleRepo;
 
-    public ClientService(ProduitRepo produitRepo, PasswordEncoder passwordEncoder, AccountRepo accountRepo, RoleRepo roleRepo){
+    public ProduitManager(ProduitRepo produitRepo, PasswordEncoder passwordEncoder, AccountRepo accountRepo, RoleRepo roleRepo){
         this.produitRepo = produitRepo;
         this.passwordEncoder = passwordEncoder;
         this.accountRepo = accountRepo;
@@ -41,7 +38,7 @@ public class ClientService {
         return this.produitRepo.findAll(pageable);
     }
 
-    public List<Produit> getAllProductOfTheDay(){
+    public List<Produit> rechercherProduitDuJour(){
         return produitRepo.getAllProductOfTheDay();
     }
 

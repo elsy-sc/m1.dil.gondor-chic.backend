@@ -1,6 +1,5 @@
-package com.gondor.magic_vente_stock.service;
+package com.gondor.magic_vente_stock.metierServices;
 
-import com.gondor.magic_vente_stock.model.Account;
 import com.gondor.magic_vente_stock.repository.AccountRepo;
 import com.gondor.magic_vente_stock.repository.RoleRepo;
 import lombok.extern.slf4j.Slf4j;

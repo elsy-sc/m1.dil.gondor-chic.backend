@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/api/login","/api/refresh_token","/api/client/products","/api/client/productsOfTheDay").permitAll()
+                .antMatchers("/api/login","/api/refresh_token","/api/client/produits","/api/client/rechercherProduitDuJour").permitAll()
                 .antMatchers("api/client/**").hasRole("client")
                 .antMatchers("api/employe/**").hasRole("employe")
                 .anyRequest().authenticated();

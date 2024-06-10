@@ -1,4 +1,4 @@
-package com.gondor.magic_vente_stock.model;
+package com.gondor.magic_vente_stock.metierServices;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,6 @@
 package com.gondor.magic_vente_stock.configuration;
 
-import com.gondor.magic_vente_stock.model.Account;
-import com.gondor.magic_vente_stock.repository.AccountRepo;
-import com.gondor.magic_vente_stock.service.ClientService;
+import com.gondor.magic_vente_stock.metierServices.ProduitManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
 
     @Bean
-    CommandLineRunner commandLineRunner(ClientService clientService){
+    CommandLineRunner commandLineRunner(ProduitManager produitManager){
         return args -> {
             /*
             Account client = new Account();

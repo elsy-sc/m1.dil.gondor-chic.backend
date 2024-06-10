@@ -1,6 +1,6 @@
 package com.gondor.magic_vente_stock.repository;
 
-import com.gondor.magic_vente_stock.model.Role;
+import com.gondor.magic_vente_stock.metierServices.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
