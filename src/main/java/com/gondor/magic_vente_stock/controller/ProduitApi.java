@@ -22,9 +22,9 @@ public class ProduitApi {
 
     @CrossOrigin
     @GetMapping(path="/produits")
-    public Page<Produit> getAllProduct(@RequestParam("page") int page, @RequestParam("perPage") int perPage) throws Exception{
+    public List<Produit> getAllProduct() throws Exception{
         //manage error
-        return produitManager.getAllProduct(page,perPage);
+        return produitManager.getAllProduct();
     }
 
     @CrossOrigin

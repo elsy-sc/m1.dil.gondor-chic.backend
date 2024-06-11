@@ -32,10 +32,10 @@ public class ProduitManager {
         this.roleRepo = roleRepo;
     }
 
-    public Page<Produit> getAllProduct(int page, int perPage){
-        log.debug("test");
-        Pageable pageable = PageRequest.of(page,perPage);
-        return this.produitRepo.findAll(pageable);
+    public List<Produit> getAllProduct(){
+        /*log.debug("test");
+        Pageable pageable = PageRequest.of(page,perPage);*/
+        return this.produitRepo.findAll();
     }
 
     public List<Produit> rechercherProduitDuJour(){
