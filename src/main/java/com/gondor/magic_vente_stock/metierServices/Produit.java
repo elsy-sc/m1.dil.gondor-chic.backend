@@ -17,7 +17,7 @@ import javax.persistence.*;
 )
 public class Produit {
     @Id
-    private String id;
+    private String id = "";
     private String libelle;
     private String photo;
     private String reference;
