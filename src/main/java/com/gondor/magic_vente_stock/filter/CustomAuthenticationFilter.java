@@ -3,6 +3,8 @@ package com.gondor.magic_vente_stock.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gondor.magic_vente_stock.metierServices.Account;
+import com.gondor.magic_vente_stock.repository.AccountRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,8 +31,11 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private final AuthenticationManager authenticationManager;
 
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
+    private final AccountRepo accountRepo;
+
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager,AccountRepo accountRepo) {
         this.authenticationManager = authenticationManager;
+        this.accountRepo = accountRepo;
     }
 
     @Override
@@ -59,11 +64,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User)authentication.getPrincipal();
+        Account account = accountRepo.findByPseudo(user.getUsername());
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes()); //gotta change it to a secret in the database
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
+                .withClaim("nom", account.getNom())
+                .withClaim("prenom", account.getPrenom())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
 

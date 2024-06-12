@@ -30,32 +30,31 @@ public class Account {
     private String nom;
     private String prenom;
 
-
-    private String email;
-
     @Column(
-            name = "username",
+            name = "pseudo",
             nullable = false
     )
-    private String username;
+    private String pseudo;
 
-    private String password;
+    @Column(
+            name = "motdepasse",
+            nullable = false
+    )
+    private String motDePasse;
 
-    public Account(String nom, String prenom, String email, String login, String password, Role r) {
+    public Account(String nom, String prenom, String login, String password, Role r) {
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
-        this.username = login;
-        this.password = password;
+        this.pseudo = login;
+        this.motDePasse = password;
         this.role = r;
     }
 
-    public Account(String nom, String prenom, String email, String login, String password) {
+    public Account(String nom, String prenom, String login, String password) {
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
-        this.username = login;
-        this.password = password;
+        this.pseudo = login;
+        this.motDePasse = password;
     }
 
     @ManyToOne(

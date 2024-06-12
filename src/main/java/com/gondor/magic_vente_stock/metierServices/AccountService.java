@@ -37,7 +37,7 @@ public class AccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Account user = accountRepo.findByUsername(login);
+        Account user = accountRepo.findByPseudo(login);
         if(user == null){
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
@@ -46,6 +46,6 @@ public class AccountService implements UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().getNom()));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword() ,authorities);
+        return new org.springframework.security.core.userdetails.User(user.getPseudo(),user.getMotDePasse() ,authorities);
     }
 }

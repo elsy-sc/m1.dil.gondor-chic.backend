@@ -21,15 +21,9 @@ public class ProduitManager {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final AccountRepo accountRepo;
-
-    private final RoleRepo roleRepo;
-
-    public ProduitManager(ProduitRepo produitRepo, PasswordEncoder passwordEncoder, AccountRepo accountRepo, RoleRepo roleRepo){
+    public ProduitManager(ProduitRepo produitRepo, PasswordEncoder passwordEncoder){
         this.produitRepo = produitRepo;
         this.passwordEncoder = passwordEncoder;
-        this.accountRepo = accountRepo;
-        this.roleRepo = roleRepo;
     }
 
     public List<Produit> getAllProduct(){
@@ -43,12 +37,6 @@ public class ProduitManager {
     }
 
     //just for testing purpose
-    public Account save(Account a){
-        Role r = roleRepo.findByNom("client");
-        a.setRole(r);
-        a.setPassword(passwordEncoder.encode(a.getPassword()));
-        return accountRepo.save(a);
-    }
 
     public Produit save(Produit produit){
         return produitRepo.save(produit);

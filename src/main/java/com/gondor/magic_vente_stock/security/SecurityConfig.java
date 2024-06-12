@@ -2,6 +2,7 @@ package com.gondor.magic_vente_stock.security;
 
 import com.gondor.magic_vente_stock.filter.CustomAuthenticationFilter;
 import com.gondor.magic_vente_stock.filter.CustomAuthorizationFilter;
+import com.gondor.magic_vente_stock.repository.AccountRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,7 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AccountRepo accountRepo;
 
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {
@@ -43,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http.csrf().disable();
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), accountRepo);
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()

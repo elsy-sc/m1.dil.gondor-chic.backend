@@ -2,21 +2,19 @@ package com.gondor.magic_vente_stock.controller;
 
 import com.gondor.magic_vente_stock.metierServices.Produit;
 import com.gondor.magic_vente_stock.metierServices.ProduitManager;
-import com.gondor.magic_vente_stock.repository.ProduitRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path="api/client/")
-public class ProduitApi {
+public class ProduitsServiceApi {
 
     private ProduitManager produitManager;
 
     @Autowired
-    public ProduitApi(ProduitManager produitManager){
+    public ProduitsServiceApi(ProduitManager produitManager){
         this.produitManager = produitManager;
     }
 
