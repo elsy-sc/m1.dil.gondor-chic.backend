@@ -13,9 +13,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Table(
-        name = "account"
+        name = "t_client"
 )
-public class Account {
+public class Client {
     @Id
     @SequenceGenerator(
             name = "account_id_sequence",
@@ -42,28 +42,10 @@ public class Account {
     )
     private String motDePasse;
 
-    public Account(String nom, String prenom, String login, String password, Role r) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.pseudo = login;
-        this.motDePasse = password;
-        this.role = r;
-    }
-
-    public Account(String nom, String prenom, String login, String password) {
+    public Client(String nom, String prenom, String login, String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.pseudo = login;
         this.motDePasse = password;
     }
-
-    @ManyToOne(
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn(
-            name = "role_id",
-            referencedColumnName = "id"
-    )
-    private Role role;
 }

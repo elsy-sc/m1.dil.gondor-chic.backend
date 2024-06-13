@@ -1,12 +1,7 @@
 package com.gondor.magic_vente_stock.metierServices;
 
-import com.gondor.magic_vente_stock.repository.AccountRepo;
 import com.gondor.magic_vente_stock.repository.ProduitRepo;
-import com.gondor.magic_vente_stock.repository.RoleRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

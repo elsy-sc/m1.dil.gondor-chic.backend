@@ -46,7 +46,7 @@ CREATE TABLE magic_vente_stock.role (
 );
 
 
-CREATE TABLE magic_vente_stock.account (
+CREATE TABLE magic_vente_stock.client (
    id SERIAL PRIMARY KEY,
    nom VARCHAR NOT NULL,
    prenom VARCHAR NOT NULL,
