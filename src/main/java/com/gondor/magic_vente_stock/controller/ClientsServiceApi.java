@@ -5,11 +5,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gondor.magic_vente_stock.metierServices.Client;
-import com.gondor.magic_vente_stock.metierServices.ClientManager;
-import com.gondor.magic_vente_stock.metierServices.ProduitManager;
+import com.gondor.magic_vente_stock.metierServices.*;
 import com.gondor.magic_vente_stock.repository.ClientRepo;
+import com.gondor.magic_vente_stock.repository.DetailPanierRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,7 @@ public class ClientsServiceApi {
                 authorities.add(new SimpleGrantedAuthority("client"));
                 String access_token = JWT.create()
                         .withSubject(client.getPseudo())
+                        .withClaim("id", client.getId())
                         .withClaim("nom", client.getNom())
                         .withClaim("prenom", client.getPrenom())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
@@ -84,6 +86,30 @@ public class ClientsServiceApi {
     @GetMapping(path="test")
     public String test() throws Exception {
         return "You're able to access client apis that require authentication and authorization!";
+    }
+
+    @CrossOrigin
+    @GetMapping(path="panier")
+    public List<DetailPanier> getCurrentBasket(@RequestHeader("Authorization") String token) throws Exception {
+        return clientManager.getCurrentBasket(token);
+    }
+
+    @CrossOrigin
+    @PostMapping(path="/panier")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> addToBasket(@RequestHeader("Authorization") String token, @RequestParam("id_produit") String idProduit, @RequestParam("quantite") int quantite) throws Exception {
+        Produit produit = clientManager.getProduitById(idProduit);
+        if(produit.getQuantiteEnStock()>= quantite){
+            DetailPanier detailPanier = clientManager.addToBasket(token, idProduit, quantite);
+            return new ResponseEntity<>(detailPanier,HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Quantité supérieure à la quantité en stock",HttpStatus.BAD_REQUEST);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(path="/panier")
+    public void deleteFromBasket(@RequestHeader("Authorization") String token, @RequestParam("id_detail_panier") String idDetailPanier) throws Exception {
+        clientManager.deleteFromBasket(token, idDetailPanier);
     }
 
 }

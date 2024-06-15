@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -71,8 +72,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String role = request.getParameter("role");
         String nom = "";
         String prenom = "";
+        String id = null;
         if(role.equalsIgnoreCase("client")){
             Client client = clientRepo.findByPseudo(user.getUsername());
+            id = client.getId();
             nom = client.getNom();
             prenom = client.getPrenom();
         }
@@ -85,6 +88,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
+                .withClaim("id", id)
                 .withClaim("nom",nom)
                 .withClaim("prenom", prenom)
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
@@ -95,6 +99,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
+                .withClaim("id", id)
                 .withClaim("nom",nom)
                 .withClaim("prenom", prenom)
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))

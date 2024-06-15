@@ -16,17 +16,10 @@ import javax.persistence.*;
         name = "t_client"
 )
 public class Client {
+
+    //change sequence name to client not account
     @Id
-    @SequenceGenerator(
-            name = "account_id_sequence",
-            sequenceName = "account_id_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "account_id_sequence"
-    )
-    private Integer id;
+    private String id = "";
     private String nom;
     private String prenom;
 
@@ -48,4 +41,5 @@ public class Client {
         this.pseudo = login;
         this.motDePasse = password;
     }
+
 }

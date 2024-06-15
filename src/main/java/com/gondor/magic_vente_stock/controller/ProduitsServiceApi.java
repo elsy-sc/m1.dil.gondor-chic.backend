@@ -3,6 +3,7 @@ package com.gondor.magic_vente_stock.controller;
 import com.gondor.magic_vente_stock.metierServices.Produit;
 import com.gondor.magic_vente_stock.metierServices.ProduitManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class ProduitsServiceApi {
 
     @CrossOrigin
     @PostMapping(path="produits")
+    @ResponseStatus(HttpStatus.CREATED)
     public Produit insertInstitution(@RequestBody Produit produit) throws Exception{
         return produitManager.save(produit);
     }
