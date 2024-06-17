@@ -20,6 +20,7 @@ public class Produit {
     private String id = "";
     private String libelle;
     private String photo;
+    private String photoMin;
     private String reference;
     @Column(name = "estdujour")
     private Boolean estDuJour;
